@@ -24,10 +24,11 @@ for iter = 1:num_iters
 
 
     % ============================================================
-
-    %theta = theta - alpha * (1/m) * sum((X*theta - y) * X);
-    theta = sum((X*theta - y)*X);
-    computeCost(X, y, theta);
+    h = X * theta; % Hypothesis
+    % Calculate the values of each parameter
+    theta0 = theta(1) - alpha * (1/m) * sum((h - y) .* X(:,1)); % Param 0
+    theta1 = theta(2) - alpha * (1/m) * sum((h - y) .* X(:,2)); % Param 1
+    theta = [theta0; theta1];
     % Save the cost J in every iteration
     J_history(iter) = computeCost(X, y, theta);
 
