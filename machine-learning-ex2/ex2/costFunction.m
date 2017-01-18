@@ -20,14 +20,6 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
-
-
-
-
-
-
-
-% =============================================================
 % Cost Function
 h = sigmoid(X * theta);
 posTerm = -(y .* log(h));
@@ -38,5 +30,7 @@ J = 1/m * (sum(posTerm - negTerm));
 for i = 1:size(theta)
   grad(i) = 1/m * sum((h - y) .* X(:, i));
 end
+
+% =============================================================
 
 end
