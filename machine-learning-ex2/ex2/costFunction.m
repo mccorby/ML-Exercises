@@ -32,11 +32,11 @@ grad = zeros(size(theta));
 h = sigmoid(X * theta);
 posTerm = -(y .* log(h));
 negTerm = (1 - y) .* log(1 - h);
-J = 1/m * (sum(posTerm - negTerm))
+J = 1/m * (sum(posTerm - negTerm));
 
 % Gradient Descent
 for i = 1:size(theta)
-  grad(i) = 1/m * sum((h - y) .* X(:, i)); 
+  grad(i) = 1/m * sum((h - y) .* X(:, i));
 end
 
 end
