@@ -22,7 +22,7 @@ grad = zeros(size(theta));
 h = sigmoid(X * theta);
 posTerm = -(y .* log(h));
 negTerm = (1 - y) .* log(1 - h);
-J = 1/m * (sum(posTerm - negTerm)) + (lambda/2*m) * sum(theta(2:end, :) .^2);
+J = 1/m * (sum(posTerm - negTerm)) + (lambda/(2*m)) * sum(theta(2:end, :) .^2);
 
 % Gradient Descent
 grad(1) = 1/m * sum((h - y) .* X(:, 1));
