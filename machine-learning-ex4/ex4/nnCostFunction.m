@@ -91,15 +91,36 @@ regTerm = lambda / (2 * m) * (regTerm1 + regTerm2);
 J = J + regTerm;
 
 
+% backpropagation
+% Loop over all training examples
+  % Step 1
+  % Set the input layer’s values (a (1) ) to the t-th training example x (t) .
+  % Perform a feedforward pass, computing the activations (z (2) , a (2) , z (3) , a (3) )
+  % for layers 2 and 3. Note that you need to add a +1 term to ensure that
+  % the vectors of activations for layers a (1) and a (2) also include the bias unit
+  % This is done previously
 
+for t = 1:m
+  % Step 2. Select the delta for each k output unit
+  for k = 1:num_labels
+      yk = y(t) == k;
+      delta_3(k) = h(t, k) - yk; % Get the k element in h and y
+  end
+  % Step 3. Compute delta for layer 2
+  z2ExampleT = z2(t, :);
+  delta_2 = Theta2' * delta_3' .* sigmoidGradient([1, z2ExampleT])';
+  % Remove delta(0)
+  delta_2 = delta_2(2:end);
 
+  % Step 4. Accumulate
+  Theta1_grad = Theta1_grad + delta_2 * a1(t, :);
+  Theta2_grad = Theta2_grad + delta_3' * a2(t, :);
+end
 
-
-
-
-
-
-
+% Obtain the (unregularized) gradient for the neural network cost func-
+% tion by dividing the accumulated gradients by m 1 :
+Theta1_grad = Theta1_grad / m;
+Theta2_grad = Theta2_grad / m;
 
 
 % -------------------------------------------------------------
