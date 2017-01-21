@@ -83,8 +83,12 @@ for k = 1:num_labels
 end
 
 
+% Compute the regularization term
+regTerm1 = sum(sum(Theta1(:, 2:end) .^ 2));
+regTerm2 = sum(sum(Theta2(:, 2:end) .^ 2));
+regTerm = lambda / (2 * m) * (regTerm1 + regTerm2);
 
-
+J = J + regTerm;
 
 
 
