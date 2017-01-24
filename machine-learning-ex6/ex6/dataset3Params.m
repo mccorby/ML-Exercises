@@ -23,26 +23,24 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
-possible_values = [0.01 0.03 0.1 0.3 1 3 10 30];
-m = size(possible_values);
-results = zeros(m);
+values = [0.01 0.03 0.1 0.3 1 3 10 30];
+n_iter = length(values);
 
-for possible_c = i:m
-  for possible_sigma = j:m
-    model = svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
-    predictions = svmPredict(model, Xval);
-    error_prediction = mean(double(predictions ~= yval));
-    results(i, j) = error_prediction;
-  end
+for i=1:n_iter
+    for j=1:n_iter
+        C = values(i);
+        sigma = values(j);
+        model = svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
+        predictions = svmPredict(model, Xval);
+        results(i,j) = mean(double(predictions ~= yval));
+    end
 end
 
-% Get the index of the min in results
-minResult = min(results(:));
-[row col] = find(results == minResult);
-C = possible_values(row);
-sigma = possible_values(col);
-
-
+% Find the index of the minimu result
+minimum_result = min(min(results));
+[i j] = find(results == minimum_result);
+C = values(i);
+sigma = values(j);
 % =========================================================================
 
 end
