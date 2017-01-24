@@ -39,8 +39,8 @@ end
 % Find the index of the minimu result
 minimum_result = min(min(results));
 [i j] = find(results == minimum_result);
-C = values(i);
-sigma = values(j);
+C = values(i)
+sigma = values(j)
 % =========================================================================
 
 end
