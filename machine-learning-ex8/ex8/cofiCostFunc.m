@@ -50,7 +50,8 @@ for m = 1:num_movies
   idx = find(R(m, :) == 1);
   Theta_temp = Theta(idx, :);
   Y_temp = Y(m, idx);
-  X_grad(m, :) = (X(m, :) * Theta_temp' - Y_temp) * Theta_temp;
+  regX = lambda * X(m, :);
+  X_grad(m, :) = (X(m, :) * Theta_temp' - Y_temp) * Theta_temp + regX;
 end
 
 % Loop to obtain gradien for Theta
@@ -58,7 +59,8 @@ for u = 1:num_users
   idx = find(R(:, u) == 1);
   X_temp = X(idx, :);
   Y_temp = Y(idx, u);
-  Theta_grad(u, :) = (X_temp * Theta(u, :)' - Y_temp)' * X_temp;
+  regTheta = lambda * Theta(u, :);
+  Theta_grad(u, :) = (X_temp * Theta(u, :)' - Y_temp)' * X_temp + regTheta;
 end
 
 % =============================================================
